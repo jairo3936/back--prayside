@@ -10,7 +10,7 @@ import cors from "cors";
 const app = express();
 
 // Settings
-app.set("port", 4000);
+app.set("port", 4006);
 
 // Middlewares
 app.use(helmet());
