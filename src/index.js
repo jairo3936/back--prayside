@@ -1,8 +1,24 @@
-import app from "./app";
+import express from "express"
+import { configDotenv } from "dotenv"
+import cors from "cors"
+import groupsRoutes from "./routes/groups.routes.js";
+import loginRouter from "./routes/login.routes.js";
+import publicationRouter from "./routes/publications.routes.js";
 
-const main = () => {
-    app.listen(app.get("port"));
-    console.log(`Server on port ${app.get("port")}`);
-};
+configDotenv()
 
-main();
+const app = express();
+app.use(cors())
+
+app.get("/", (req, res) => {
+  res.send("Backend funcionando!");
+});
+
+app.use(express.json())
+app.use("/api", groupsRoutes, loginRouter, publicationRouter)
+
+
+const {PORT} = process.env
+app.listen(PORT, () => {
+  console.log("Server running on", PORT )
+})
